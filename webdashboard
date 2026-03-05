@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Weather Monitoring</title>
+
+<style>
+body{
+font-family: Arial;
+text-align:center;
+background:#f2f2f2;
+}
+
+.card{
+width:300px;
+margin:auto;
+padding:20px;
+background:white;
+box-shadow:0 0 10px gray;
+}
+</style>
+
+</head>
+
+<body>
+
+<h1>Cloud Weather Monitoring</h1>
+
+<div class="card">
+
+<h2>Temperature</h2>
+<h3>{{temperature}} °C</h3>
+
+<h2>Humidity</h2>
+<h3>{{humidity}} %</h3>
+
+</div>
+
+</body>
+</html>
