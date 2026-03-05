@@ -1,0 +1,47 @@
+#include <ESP8266WiFi.h>
+#include <DHT.h>
+
+#define DHTPIN D4
+#define DHTTYPE DHT11
+
+const char* ssid = "YOUR_WIFI_NAME";
+const char* password = "YOUR_WIFI_PASSWORD";
+
+const char* server = ""; // computer IP
+WiFiClient client;
+
+DHT dht(DHTPIN, DHTTYPE);
+
+void setup()
+{
+Serial.begin(115200);
+
+WiFi.begin(ssid, password);
+
+while (WiFi.status() != WL_CONNECTED)
+{
+delay(500);
+Serial.print(".");
+}
+
+Serial.println("WiFi connected");
+
+dht.begin();
+}
+
+void loop()
+{
+float temp = dht.readTemperature();
+float hum = dht.readHumidity();
+
+if (client.connect(server, 5000))
+{
+String url = "/update?temp=" + String(temp) + "&hum=" + String(hum);
+
+client.print(String("GET ") + url + " HTTP/1.1\r\n" +
+"Host: " + server + "\r\n" +
+"Connection: close\r\n\r\n");
+}
+
+delay(5000);
+}
