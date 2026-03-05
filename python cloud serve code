@@ -1,0 +1,23 @@
+from flask import Flask, render_template, request
+
+app = Flask(__name__)
+
+temperature = 0
+humidity = 0
+
+@app.route("/")
+def home():
+    return render_template("index.html",
+                           temperature=temperature,
+                           humidity=humidity)
+
+@app.route("/update")
+def update():
+    global temperature, humidity
+
+    temperature = request.args.get("temp")
+    humidity = request.args.get("hum")
+
+    return "Data received"
+
+app.run(host="0.0.0.0", port=5000)
